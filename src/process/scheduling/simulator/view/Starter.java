@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package view;
+package process.scheduling.simulator.view;
 
 import java.util.ArrayList;
 import java.util.List;
