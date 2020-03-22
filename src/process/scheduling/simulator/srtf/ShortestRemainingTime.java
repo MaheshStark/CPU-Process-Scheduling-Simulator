@@ -56,6 +56,7 @@ public class ShortestRemainingTime {
         }
         for (int j = 0; j < completed.size(); j++) {
             ProcessObj p = completed.get(j);
+            p.setBrustTime(l.get(j).getBrustTime());
             p.setTurnaroundTime(p.getCompleteTime()- p.getArrivalTime());
             p.setWaitingTime(p.getTurnaroundTime()- p.getBrustTime());
             completed.set(j, p);

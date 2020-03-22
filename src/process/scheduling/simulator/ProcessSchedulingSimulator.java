@@ -40,10 +40,10 @@ public class ProcessSchedulingSimulator {
         c.add(p4);
 //        FirstComeFirstServe f1 = new FirstComeFirstServe();
 //        f1.allocateResources(l);
-        ShortestJobFirst s1 = new ShortestJobFirst();
-        s1.allocateResources(l);
-//        ShortestRemainingTime s1 = new ShortestRemainingTime();
-//        List<ProcessObj> listCompleted= f1.allocateResources(l,c);
+//        ShortestJobFirst s1 = new ShortestJobFirst();
+//        s1.allocateResources(l);
+        ShortestRemainingTime s1 = new ShortestRemainingTime();
+        List<ProcessObj> listCompleted= s1.allocateResources(l,c);
 //          RoundRobin r = new RoundRobin();
 //          r.allocateResources(l, 2);
     }
