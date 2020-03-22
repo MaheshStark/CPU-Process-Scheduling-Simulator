@@ -7,6 +7,7 @@
 package process.scheduling.simulator.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import process.scheduling.simulator.ProcessObj;
@@ -498,7 +499,7 @@ public class Starter extends javax.swing.JFrame {
         mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -506,12 +507,12 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
-        
+        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_sJFActionPerformed
 
     private void fCFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fCFSActionPerformed
@@ -539,7 +540,7 @@ public class Starter extends javax.swing.JFrame {
         mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -547,12 +548,12 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
-        
+        txtThroughput.setText(calculateThroughput(listCompleted));
         
        
     }//GEN-LAST:event_fCFSActionPerformed
@@ -582,7 +583,7 @@ public class Starter extends javax.swing.JFrame {
 //        mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -590,11 +591,12 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
+        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_sRTActionPerformed
 
     private void createProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProcessActionPerformed
@@ -643,7 +645,7 @@ public class Starter extends javax.swing.JFrame {
         mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -651,12 +653,13 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
-        
+        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_rRoundActionPerformed
 
     private void txtWaitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWaitActionPerformed
@@ -742,4 +745,14 @@ public class Starter extends javax.swing.JFrame {
     private javax.swing.JTextField txtThroughput;
     private javax.swing.JTextField txtWait;
     // End of variables declaration//GEN-END:variables
+
+    private String calculateThroughput(List<ProcessObj> listCompleted) {
+        List<Integer> completedTimes = new ArrayList<>();
+        for (int i = 0; i < listCompleted.size(); i++) {
+            completedTimes.add(listCompleted.get(i).getCompleteTime());
+        }
+        Collections.sort(completedTimes);
+        float tPut = (float) completedTimes.get(completedTimes.size()-1)/completedTimes.size();
+        return Float.toString(tPut);
+    }
 }
