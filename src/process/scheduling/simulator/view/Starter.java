@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-package view;
+package process.scheduling.simulator.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import process.scheduling.simulator.ProcessObj;
@@ -498,7 +499,7 @@ public class Starter extends javax.swing.JFrame {
         mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -506,12 +507,12 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
-        
+        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_sJFActionPerformed
 
     private void fCFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fCFSActionPerformed
@@ -539,7 +540,7 @@ public class Starter extends javax.swing.JFrame {
         mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -547,12 +548,12 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
-        
+        txtThroughput.setText(calculateThroughput(listCompleted));
         
        
     }//GEN-LAST:event_fCFSActionPerformed
@@ -567,22 +568,25 @@ public class Starter extends javax.swing.JFrame {
             int aTime = (int) mdl.getValueAt(i, 2);
             int bTime = (int) mdl.getValueAt(i, 3);
             ProcessObj p1 = new ProcessObj(pName,pId,aTime,bTime);
+            ProcessObj p2 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
+            listCompleted.add(p2);
             System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
 //        mdl.setRowCount(0);
         ShortestRemainingTime srt = new ShortestRemainingTime();
         try {
-            listCompleted=srt.allocateResources(list, list);
+
+            listCompleted = resetBurst(srt.allocateResources(list, listCompleted));
             
         } catch (Exception e) {
             System.out.println("Fail to complete the task=>");
         }
         DefaultTableModel mdlComplete = (DefaultTableModel) tblComplete.getModel();
-//        mdlComplete.setRowCount(0);
+        mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -590,11 +594,12 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
+        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_sRTActionPerformed
 
     private void createProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProcessActionPerformed
@@ -628,13 +633,16 @@ public class Starter extends javax.swing.JFrame {
             int aTime = (int) mdl.getValueAt(i, 2);
             int bTime = (int) mdl.getValueAt(i, 3);
             ProcessObj p1 = new ProcessObj(pName,pId,aTime,bTime);
+            ProcessObj p2 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
+            listCompleted.add(p2);
             System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
 //        mdl.setRowCount(0);
          RoundRobin r = new RoundRobin();
         try {
-            listCompleted=r.allocateResources(list, timeQ);
+//            listCompleted=r.allocateResources(list, timeQ);
+            listCompleted = resetBurst(r.allocateResources(list, listCompleted,timeQ));
             
         } catch (Exception e) {
             System.out.println("Fail to complete the task=>");
@@ -643,7 +651,7 @@ public class Starter extends javax.swing.JFrame {
         mdlComplete.setRowCount(0);
         int totWaitingTime=0;
         int totTurnTime = 0;
-        int avgWait,avgTurn;
+        float avgWait,avgTurn;
         
         for (int i = 0; i < listCompleted.size(); i++) {
             ProcessObj p1 = listCompleted.get(i);
@@ -651,12 +659,12 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        avgWait=totWaitingTime/listCompleted.size();
-        avgTurn=totTurnTime/listCompleted.size();
+        avgWait=(float)totWaitingTime/listCompleted.size();
+        avgTurn=(float)totTurnTime/listCompleted.size();
         
         txtAvgTurn.setText(String.valueOf(avgTurn));
         txtWait.setText(String.valueOf(avgWait));
-        
+        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_rRoundActionPerformed
 
     private void txtWaitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWaitActionPerformed
@@ -742,4 +750,35 @@ public class Starter extends javax.swing.JFrame {
     private javax.swing.JTextField txtThroughput;
     private javax.swing.JTextField txtWait;
     // End of variables declaration//GEN-END:variables
+
+    private String calculateThroughput(List<ProcessObj> listCompleted) {
+        List<Integer> completedTimes = new ArrayList<>();
+        for (int i = 0; i < listCompleted.size(); i++) {
+            completedTimes.add(listCompleted.get(i).getCompleteTime()); 
+        }
+        Collections.sort(completedTimes);
+        float tPut = (float) completedTimes.get(completedTimes.size()-1)/completedTimes.size();
+        return Float.toString(tPut);
+    }
+
+    private List<ProcessObj> resetBurst(List<ProcessObj> recive) {
+        DefaultTableModel mdl = (DefaultTableModel) tblAddedProcess.getModel();
+        List<ProcessObj> sendList = new ArrayList<>();
+        for (int i = 0; i < mdl.getRowCount(); i++) {
+            String pName = (String) mdl.getValueAt(i, 1);
+            int bTime = (int) mdl.getValueAt(i, 3);
+            
+            for (ProcessObj recive1 : recive) {
+                if (pName.equals(recive1.getName())) {
+                    recive1.setBrustTime(bTime);
+                    recive1.setWaitingTime(recive1.getTurnaroundTime()- bTime);
+                    sendList.add(recive1);
+                }
+                
+            }
+        }
+        
+        
+        return sendList;
+    }
 }
