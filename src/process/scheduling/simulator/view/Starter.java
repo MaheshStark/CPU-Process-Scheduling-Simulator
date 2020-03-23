@@ -576,7 +576,7 @@ public class Starter extends javax.swing.JFrame {
 //        mdl.setRowCount(0);
         ShortestRemainingTime srt = new ShortestRemainingTime();
         try {
-//            listCompleted=
+
             listCompleted = resetBurst(srt.allocateResources(list, listCompleted));
             
         } catch (Exception e) {
@@ -633,13 +633,16 @@ public class Starter extends javax.swing.JFrame {
             int aTime = (int) mdl.getValueAt(i, 2);
             int bTime = (int) mdl.getValueAt(i, 3);
             ProcessObj p1 = new ProcessObj(pName,pId,aTime,bTime);
+            ProcessObj p2 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
+            listCompleted.add(p2);
             System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
 //        mdl.setRowCount(0);
          RoundRobin r = new RoundRobin();
         try {
-            listCompleted=r.allocateResources(list, timeQ);
+//            listCompleted=r.allocateResources(list, timeQ);
+            listCompleted = resetBurst(r.allocateResources(list, listCompleted,timeQ));
             
         } catch (Exception e) {
             System.out.println("Fail to complete the task=>");
@@ -656,7 +659,6 @@ public class Starter extends javax.swing.JFrame {
             totWaitingTime = totWaitingTime + p1.getWaitingTime();
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
-        
         avgWait=(float)totWaitingTime/listCompleted.size();
         avgTurn=(float)totTurnTime/listCompleted.size();
         

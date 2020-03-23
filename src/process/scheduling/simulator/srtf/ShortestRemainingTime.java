@@ -27,15 +27,6 @@ public class ShortestRemainingTime {
         
         this.list.addAll(l);
         this.completed.addAll(completed);
-        
-        for (int i = 0; i < completed.size(); i++) {
-            System.out.println(" process completed time = "+completed.get(i).getCompleteTime());
-            System.out.println(" process turnaround time = "+completed.get(i).getTurnaroundTime());
-            System.out.println(" process burst time = "+completed.get(i).getBrustTime());
-            System.out.println(" process waiting time = "+completed.get(i).getWaitingTime());
-            System.out.println("---------------------------------------------------------");
-        }
-        
         while (list.size()>0 || q.size()>0) { 
             addToQueue();
             while (q.isEmpty()) {                
