@@ -485,7 +485,7 @@ public class Starter extends javax.swing.JFrame {
             int bTime = (int) mdl.getValueAt(i, 3);
             ProcessObj p1 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
-            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
+//            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
 //        mdl.setRowCount(0);
          ShortestJobFirst sjf = new ShortestJobFirst();
@@ -526,7 +526,7 @@ public class Starter extends javax.swing.JFrame {
             int bTime = (int) mdl.getValueAt(i, 3);
             ProcessObj p1 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
-            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
+//            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
 //        mdl.setRowCount(0);
         FirstComeFirstServe f1 = new FirstComeFirstServe();
@@ -571,7 +571,7 @@ public class Starter extends javax.swing.JFrame {
             ProcessObj p2 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
             listCompleted.add(p2);
-            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
+//            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
 //        mdl.setRowCount(0);
         ShortestRemainingTime srt = new ShortestRemainingTime();
@@ -636,7 +636,7 @@ public class Starter extends javax.swing.JFrame {
             ProcessObj p2 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
             listCompleted.add(p2);
-            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
+//            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
 //        mdl.setRowCount(0);
          RoundRobin r = new RoundRobin();
