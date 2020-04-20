@@ -362,17 +362,21 @@ public class Starter extends javax.swing.JFrame {
 
         lblthroughput.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        txtAvgTurn.setEditable(false);
         txtAvgTurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAvgTurnActionPerformed(evt);
             }
         });
 
+        txtWait.setEditable(false);
         txtWait.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtWaitActionPerformed(evt);
             }
         });
+
+        txtThroughput.setEditable(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -508,10 +512,13 @@ public class Starter extends javax.swing.JFrame {
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
         avgWait=(float)totWaitingTime/listCompleted.size();
-        avgTurn=(float)totTurnTime/listCompleted.size();
+        float avgWaitRound = (float) (Math.round(avgWait * 100.0) / 100.0);
         
-        txtAvgTurn.setText(String.valueOf(avgTurn));
-        txtWait.setText(String.valueOf(avgWait));
+        avgTurn=(float)totTurnTime/listCompleted.size();
+        float avgTurnRound = (float) (Math.round(avgTurn * 100.0) / 100.0);
+        
+        txtAvgTurn.setText(String.valueOf(avgTurnRound));
+        txtWait.setText(String.valueOf(avgWaitRound));
         txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_sJFActionPerformed
 
@@ -526,9 +533,7 @@ public class Starter extends javax.swing.JFrame {
             int bTime = (int) mdl.getValueAt(i, 3);
             ProcessObj p1 = new ProcessObj(pName,pId,aTime,bTime);
             list.add(p1);
-//            System.out.println(p1.getId()+" "+p1.getName()+" "+p1.getArrivalTime()+" "+p1.getBrustTime());
         }
-//        mdl.setRowCount(0);
         FirstComeFirstServe f1 = new FirstComeFirstServe();
         try {
             listCompleted=f1.allocateResources(list);
@@ -549,12 +554,20 @@ public class Starter extends javax.swing.JFrame {
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
         avgWait=(float)totWaitingTime/listCompleted.size();
+        float avgWaitRound = (float) (Math.round(avgWait * 100.0) / 100.0);
+        
         avgTurn=(float)totTurnTime/listCompleted.size();
+        float avgTurnRound = (float) (Math.round(avgTurn * 100.0) / 100.0);
         
-        txtAvgTurn.setText(String.valueOf(avgTurn));
-        txtWait.setText(String.valueOf(avgWait));
+        txtAvgTurn.setText(String.valueOf(avgTurnRound));
+        txtWait.setText(String.valueOf(avgWaitRound));
         txtThroughput.setText(calculateThroughput(listCompleted));
-        
+//        avgWait=(float)totWaitingTime/listCompleted.size();
+//        avgTurn=(float)totTurnTime/listCompleted.size();
+//        
+//        txtAvgTurn.setText(String.valueOf(avgTurn));
+//        txtWait.setText(String.valueOf(avgWait));
+//        txtThroughput.setText(calculateThroughput(listCompleted));
        
     }//GEN-LAST:event_fCFSActionPerformed
 
@@ -595,11 +608,21 @@ public class Starter extends javax.swing.JFrame {
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
         avgWait=(float)totWaitingTime/listCompleted.size();
-        avgTurn=(float)totTurnTime/listCompleted.size();
+        float avgWaitRound = (float) (Math.round(avgWait * 100.0) / 100.0);
         
-        txtAvgTurn.setText(String.valueOf(avgTurn));
-        txtWait.setText(String.valueOf(avgWait));
+        avgTurn=(float)totTurnTime/listCompleted.size();
+        float avgTurnRound = (float) (Math.round(avgTurn * 100.0) / 100.0);
+        
+        txtAvgTurn.setText(String.valueOf(avgTurnRound));
+        txtWait.setText(String.valueOf(avgWaitRound));
         txtThroughput.setText(calculateThroughput(listCompleted));
+        
+//        avgWait=(float)totWaitingTime/listCompleted.size();
+//        avgTurn=(float)totTurnTime/listCompleted.size();
+//        
+//        txtAvgTurn.setText(String.valueOf(avgTurn));
+//        txtWait.setText(String.valueOf(avgWait));
+//        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_sRTActionPerformed
 
     private void createProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProcessActionPerformed
@@ -660,11 +683,22 @@ public class Starter extends javax.swing.JFrame {
             totTurnTime = totTurnTime + p1.getTurnaroundTime();
         }
         avgWait=(float)totWaitingTime/listCompleted.size();
-        avgTurn=(float)totTurnTime/listCompleted.size();
+        float avgWaitRound = (float) (Math.round(avgWait * 100.0) / 100.0);
         
-        txtAvgTurn.setText(String.valueOf(avgTurn));
-        txtWait.setText(String.valueOf(avgWait));
+        avgTurn=(float)totTurnTime/listCompleted.size();
+        float avgTurnRound = (float) (Math.round(avgTurn * 100.0) / 100.0);
+        
+        txtAvgTurn.setText(String.valueOf(avgTurnRound));
+        txtWait.setText(String.valueOf(avgWaitRound));
         txtThroughput.setText(calculateThroughput(listCompleted));
+        
+//        
+//        avgWait=(float)totWaitingTime/listCompleted.size();
+//        avgTurn=(float)totTurnTime/listCompleted.size();
+//        
+//        txtAvgTurn.setText(String.valueOf(avgTurn));
+//        txtWait.setText(String.valueOf(avgWait));
+//        txtThroughput.setText(calculateThroughput(listCompleted));
     }//GEN-LAST:event_rRoundActionPerformed
 
     private void txtWaitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWaitActionPerformed
@@ -757,8 +791,9 @@ public class Starter extends javax.swing.JFrame {
             completedTimes.add(listCompleted.get(i).getCompleteTime()); 
         }
         Collections.sort(completedTimes);
-        float tPut = (float) completedTimes.get(completedTimes.size()-1)/completedTimes.size();
-        return Float.toString(tPut);
+        float tPut = (float) completedTimes.size()/completedTimes.get(completedTimes.size()-1);
+        float roudTput = (float) (Math.round(tPut * 100.0) / 100.0);
+        return Float.toString(roudTput);
     }
 
     private List<ProcessObj> resetBurst(List<ProcessObj> recive) {

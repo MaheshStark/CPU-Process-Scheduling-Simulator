@@ -22,15 +22,16 @@ public class FirstComeFirstServe {
         List<ProcessObj> list = new ArrayList<>();
         List<ProcessObj> completed = new ArrayList<>();
     public List<ProcessObj> allocateResources( List<ProcessObj> l) throws InterruptedException {
-        this.list=l;
-        this.addToQueue();
+        System.out.println("Started the first come first serve algorithm--->");
+        list=l;
+//        addToQueue();
         while (list.size()>0 || q.size()>0) { 
-            this.addToQueue();
+            addToQueue();
             while (q.size()==0) {                
                 System.out.println("------Waiting to recive a process---------");
                 TimeUnit.SECONDS.sleep(1);
                 time++;
-                this.addToQueue();
+                addToQueue();
             }
             ProcessObj processRun = q.remove(); 
             System.out.println("Process which name - " + processRun.getName() + " and Id = " + processRun.getId() + " is going run");
@@ -38,7 +39,7 @@ public class FirstComeFirstServe {
                 System.out.println("------running a seccond--------");
                 TimeUnit.SECONDS.sleep(1);
                 time++;
-                this.addToQueue();
+                addToQueue();
             }
             processRun.setCompleteTime(time);
             processRun.setTurnaroundTime(time-processRun.getArrivalTime());
@@ -62,7 +63,7 @@ public class FirstComeFirstServe {
                 list.remove(i);
             }
         }
-                                
+                       
         }
     }
 }
