@@ -25,8 +25,9 @@ public class RoundRobin {
     List<ProcessObj> completed = new ArrayList<>();
 
     public List<ProcessObj> allocateResources(List<ProcessObj> l, List<ProcessObj> c, int timeQ) throws InterruptedException {
-        this.list.addAll(l);
-        this.completed.addAll(c);
+        System.out.println("Started the round robin algorithm--->");
+        list.addAll(l);
+        completed.addAll(c);
         timeQuantum=timeQ;
         while (list.size() > 0 || q.size() > 0) {
             addToQueue();

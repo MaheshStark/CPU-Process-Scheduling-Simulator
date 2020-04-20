@@ -24,8 +24,8 @@ public class ShortestRemainingTime {
         List<ProcessObj> list = new ArrayList<>();
         List<ProcessObj> completed = new ArrayList<>();
     public List<ProcessObj> allocateResources( List<ProcessObj> l, List<ProcessObj> completed) throws InterruptedException {
-        
-        this.list.addAll(l);
+        System.out.println("Started the shortest remaining time first algorithm--->");
+        list.addAll(l);
         this.completed.addAll(completed);
         while (list.size()>0 || q.size()>0) { 
             addToQueue();
